@@ -1,0 +1,37 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity BinToBCD is
+    Port (
+        BIN_IN : in  STD_LOGIC_VECTOR (9 downto 0);
+        DIG_1  : out STD_LOGIC_VECTOR (3 downto 0);
+        DIG_2  : out STD_LOGIC_VECTOR (3 downto 0);
+        DIG_3  : out STD_LOGIC_VECTOR (3 downto 0);
+        DIG_4  : out STD_LOGIC_VECTOR (3 downto 0) 
+    );
+end BinToBCD;
+
+architecture Behavioral of BinToBCD is
+begin
+    process(BIN_IN)
+        variable num : integer;
+        variable temp_m, temp_c, temp_d, temp_u : integer;
+    begin
+        num := to_integer(unsigned(BIN_IN));
+
+        temp_m := num / 1000;
+        num    := num mod 1000;
+
+        temp_c := num / 100;
+        num    := num mod 100;
+
+        temp_d := num / 10;
+        temp_u := num mod 10;
+
+        DIG_4 <= std_logic_vector(to_unsigned(temp_m, 4));
+        DIG_3 <= std_logic_vector(to_unsigned(temp_c, 4));
+        DIG_2 <= std_logic_vector(to_unsigned(temp_d, 4));
+        DIG_1 <= std_logic_vector(to_unsigned(temp_u, 4));
+    end process;
+end Behavioral;

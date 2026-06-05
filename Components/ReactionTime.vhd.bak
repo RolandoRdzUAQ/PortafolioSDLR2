@@ -1,0 +1,121 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity ReactionTimeGame is
+    Port ( 
+        CLK  : in  STD_LOGIC;                     -- Reloj de 50 MHz
+        RST  : in  STD_LOGIC;                     -- Reset Global (Switch)
+        BTN  : in  STD_LOGIC;                     -- Botón del usuario (Detiene el tiempo)
+        ALRM : out STD_LOGIC;                     -- LED de Alarma (Estímulo)
+        TIME_LEDS : out STD_LOGIC_VECTOR(9 downto 0) -- 10 LEDs para mostrar el tiempo
+    );
+end ReactionTimeGame;
+
+architecture Structural of ReactionTimeGame is
+
+    constant TICKS_ESPERA : integer := 500000000; 
+    
+    constant TICKS_MS     : integer := 50000;
+
+
+    component Timer is
+        generic( N : INTEGER := 10 );
+        port(
+            CLK : IN STD_LOGIC;
+            RST : IN STD_LOGIC;
+            EOT : OUT STD_LOGIC
+        );
+    end component;
+
+    component LatchSR is
+        port(
+            RST : in STD_LOGIC;
+            CLK : in STD_LOGIC;
+            SET : in STD_LOGIC;
+            CLEAR : in STD_LOGIC;
+            SOUT : out STD_LOGIC
+        );
+    end component;
+
+    component FreeRunCounter is
+        generic ( N : integer := 4 );
+        port (
+            INC : in STD_LOGIC;
+            CLK : in STD_LOGIC;
+            RST : in STD_LOGIC;
+            COUNT : out STD_LOGIC_VECTOR(N-1 downto 0)
+        );
+    end component;
+
+    -- 3. CABLES INTERNOS (SEÑALES)
+    signal syn_start_pulse : STD_LOGIC;  -- Pulso cuando pasan los 10 segundos
+    signal syn_active      : STD_LOGIC;  -- Estado del sistema (1 = Midiendo tiempo)
+    signal syn_tick_1ms    : STD_LOGIC;  -- Pulso cada 1 milisegundo
+    
+    -- Señal auxiliar para el reset del Timer de 1ms
+    -- Tu Timer usa Reset Activo Bajo ('0' resetea), así que conectaremos 
+    -- la señal de "Activo" directamente. Si Activo=0, Timer se resetea. Si Activo=1, Timer corre.
+    signal rst_timer_ms    : STD_LOGIC; 
+
+begin
+
+    -- Asignaciones simples
+    ALRM <= syn_active;          -- El LED de alarma se prende cuando el sistema está activo
+    rst_timer_ms <= syn_active;  -- El timer de MS solo corre si la alarma está prendida
+
+    -- ====================================================
+    -- U01: TIMER DE ESPERA (10 SEGUNDOS)
+    -- ====================================================
+    U01_DelayTimer: Timer
+    generic map (
+        N => TICKS_ESPERA  -- 500 Millones de ciclos
+    )
+    port map (
+        CLK => CLK,
+        RST => RST,             -- Reset global del sistema
+        EOT => syn_start_pulse  -- Manda un pulso '1' cuando termina la cuenta
+    );
+
+    -- ====================================================
+    -- U02: LATCH (MEMORIA DE ESTADO)
+    -- ====================================================
+    U02_ControlLatch: LatchSR
+    port map (
+        CLK   => CLK,
+        RST   => RST,             -- Reset global
+        SET   => syn_start_pulse, -- Se activa cuando el Timer de 10s termina
+        CLEAR => BTN,             -- Se desactiva cuando el usuario presiona el botón
+        SOUT  => syn_active       -- Salida principal: "Juego en curso"
+    );
+
+    -- ====================================================
+    -- U03: TIMER DE BASE DE TIEMPO (1 MS)
+    -- ====================================================
+    U03_MsTimer: Timer
+    generic map (
+        N => TICKS_MS      -- 50,000 ciclos (1ms)
+    )
+    port map (
+        CLK => CLK,
+        -- Truco: Usamos la salida del Latch como Reset. 
+        -- Si syn_active es '0', este Timer se mantiene apagado en 0.
+        -- Si syn_active es '1', este Timer empieza a contar.
+        RST => rst_timer_ms, 
+        EOT => syn_tick_1ms   -- Emite un pulso cada 1ms exacto
+    );
+
+    -- ====================================================
+    -- U04: CONTADOR DE TIEMPO (RESULTADO)
+    -- ====================================================
+    U04_ResultCounter: FreeRunCounter
+    generic map (
+        N => 10  -- Usamos 10 bits para los 10 LEDs de la DE10-Lite
+    )
+    port map (
+        CLK   => CLK,
+        RST   => RST,           -- Reset global (para borrar la cuenta y jugar de nuevo)
+        INC   => syn_tick_1ms,  -- Incrementa la cuenta solo cuando recibe el pulso de 1ms
+        COUNT => TIME_LEDS      -- Muestra el valor binario en los LEDs
+    );
+
+end Structural;
