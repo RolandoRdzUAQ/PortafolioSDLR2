@@ -1,0 +1,18 @@
+# Archivo de configuración para vhdl_ls
+
+# Define dónde están los archivos de tu proyecto
+[files]
+    # Analiza todos los archivos .vhd en el directorio actual y subdirectorios
+    files = [
+        '**/*.vhd',
+        '**/*.vhdl'
+    ]
+
+# Define las librerías externas (Estándar IEEE)
+#[libraries]
+    # vhdl_ls ya trae las librerías IEEE precompiladas internamente, 
+    # pero a veces necesita que se las declares explícitamente dependiendo de tu proyecto.
+#    ieee.files = [
+        # Puedes apuntar a las librerías de tu compilador local si ghdl o quartus están instalados, 
+        # o simplemente dejar que el LSP use sus internas si no hay dependencias raras.
+#    ]

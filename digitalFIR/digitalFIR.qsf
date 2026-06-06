@@ -1,0 +1,156 @@
+# ==============================================================================
+# ARCHIVO QSF MAESTRO - TARJETA DE10-LITE (MAX 10: 10M50DAF484C7G)
+# ==============================================================================
+
+# 1. Ajustes del dispositivo
+set_global_assignment -name FAMILY "MAX 10"
+set_global_assignment -name DEVICE 10M50DAF484C7G
+set_global_assignment -name TOP_LEVEL_ENTITY digitalFIR
+
+# ==============================================================================
+
+# 2. Evitar advertencias molestas estableciendo el voltaje estándar a 3.3V
+set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
+
+# ==============================================================================
+# ASIGNACIÓN DE PINES
+# ==============================================================================
+
+# --------------------------------------------------------------------------
+# Relojes (Clocks) - 50 MHz
+# --------------------------------------------------------------------------
+set_location_assignment PIN_P11 -to CLK
+# set_location_assignment PIN_N14 -to TU_SENAL_CLK2_50
+
+# --------------------------------------------------------------------------
+# Botones (Push Buttons) - Lógica Inversa (0 = Presionado, 1 = Suelto)
+# --------------------------------------------------------------------------
+# set_location_assignment PIN_B8  -to TU_SENAL_BTN0
+# set_location_assignment PIN_A7  -to TU_SENAL_BTN1
+
+# --------------------------------------------------------------------------
+# Interruptores Deslizables (Switches)
+# --------------------------------------------------------------------------
+# set_location_assignment PIN_C10 -to TU_SENAL_SW0
+# set_location_assignment PIN_C11 -to TU_SENAL_SW1
+# set_location_assignment PIN_D12 -to TU_SENAL_SW2
+# set_location_assignment PIN_C12 -to TU_SENAL_SW3
+# set_location_assignment PIN_A12 -to TU_SENAL_SW4
+# set_location_assignment PIN_B12 -to TU_SENAL_SW5
+# set_location_assignment PIN_A13 -to TU_SENAL_SW6
+# set_location_assignment PIN_A14 -to TU_SENAL_SW7
+# set_location_assignment PIN_B14 -to TU_SENAL_SW8
+# set_location_assignment PIN_F15 -to TU_SENAL_SW9
+
+# --------------------------------------------------------------------------
+# LEDs Rojos (LEDR)
+# --------------------------------------------------------------------------
+# set_location_assignment PIN_A8  -to DOUT
+# set_location_assignment PIN_A9  -to TU_SENAL_LED1
+# set_location_assignment PIN_A10 -to TU_SENAL_LED2
+# set_location_assignment PIN_B10 -to TU_SENAL_LED3
+# set_location_assignment PIN_D13 -to TU_SENAL_LED4
+# set_location_assignment PIN_C13 -to TU_SENAL_LED5
+# set_location_assignment PIN_E14 -to TU_SENAL_LED6
+# set_location_assignment PIN_D14 -to TU_SENAL_LED7
+# set_location_assignment PIN_A11 -to TU_SENAL_LED8
+# set_location_assignment PIN_B11 -to TU_SENAL_LED9
+
+# --------------------------------------------------------------------------
+# Displays de 7 Segmentos (Ánodo Común: 0 = Enciende el segmento)
+# El orden tradicional es: a, b, c, d, e, f, g, DP (Punto)
+# --------------------------------------------------------------------------
+
+# --- HEX 0 (El de más a la derecha) ---
+# set_location_assignment PIN_C14 -to TU_SENAL_HEX0_A
+# set_location_assignment PIN_E15 -to TU_SENAL_HEX0_B
+# set_location_assignment PIN_C15 -to TU_SENAL_HEX0_C
+# set_location_assignment PIN_C16 -to TU_SENAL_HEX0_D
+# set_location_assignment PIN_E16 -to TU_SENAL_HEX0_E
+# set_location_assignment PIN_D17 -to TU_SENAL_HEX0_F
+# set_location_assignment PIN_C17 -to TU_SENAL_HEX0_G
+# set_location_assignment PIN_D15 -to TU_SENAL_HEX0_DP
+
+# --- HEX 1 ---
+# set_location_assignment PIN_C18 -to TU_SENAL_HEX1_A
+# set_location_assignment PIN_D18 -to TU_SENAL_HEX1_B
+# set_location_assignment PIN_E18 -to TU_SENAL_HEX1_C
+# set_location_assignment PIN_B16 -to TU_SENAL_HEX1_D
+# set_location_assignment PIN_A17 -to TU_SENAL_HEX1_E
+# set_location_assignment PIN_A18 -to TU_SENAL_HEX1_F
+# set_location_assignment PIN_B17 -to TU_SENAL_HEX1_G
+# set_location_assignment PIN_A16 -to TU_SENAL_HEX1_DP
+
+# --- HEX 2 ---
+# set_location_assignment PIN_B20 -to TU_SENAL_HEX2_A
+# set_location_assignment PIN_A20 -to TU_SENAL_HEX2_B
+# set_location_assignment PIN_B19 -to TU_SENAL_HEX2_C
+# set_location_assignment PIN_A21 -to TU_SENAL_HEX2_D
+# set_location_assignment PIN_B21 -to TU_SENAL_HEX2_E
+# set_location_assignment PIN_C22 -to TU_SENAL_HEX2_F
+# set_location_assignment PIN_B22 -to TU_SENAL_HEX2_G
+# set_location_assignment PIN_A19 -to TU_SENAL_HEX2_DP
+
+# --- HEX 3 ---
+# set_location_assignment PIN_F21 -to TU_SENAL_HEX3_A
+# set_location_assignment PIN_E22 -to TU_SENAL_HEX3_B
+# set_location_assignment PIN_E21 -to TU_SENAL_HEX3_C
+# set_location_assignment PIN_C19 -to TU_SENAL_HEX3_D
+# set_location_assignment PIN_C20 -to TU_SENAL_HEX3_E
+# set_location_assignment PIN_D19 -to TU_SENAL_HEX3_F
+# set_location_assignment PIN_E17 -to TU_SENAL_HEX3_G
+# set_location_assignment PIN_D22 -to TU_SENAL_HEX3_DP
+
+# --- HEX 4 ---
+# set_location_assignment PIN_F18 -to TU_SENAL_HEX4_A
+# set_location_assignment PIN_E20 -to TU_SENAL_HEX4_B
+# set_location_assignment PIN_E19 -to TU_SENAL_HEX4_C
+# set_location_assignment PIN_J18 -to TU_SENAL_HEX4_D
+# set_location_assignment PIN_H19 -to TU_SENAL_HEX4_E
+# set_location_assignment PIN_F19 -to TU_SENAL_HEX4_F
+# set_location_assignment PIN_F20 -to TU_SENAL_HEX4_G
+# set_location_assignment PIN_F17 -to TU_SENAL_HEX4_DP
+
+# --- HEX 5 (El de más a la izquierda) ---
+# set_location_assignment PIN_J20 -to TU_SENAL_HEX5_A
+# set_location_assignment PIN_K20 -to TU_SENAL_HEX5_B
+# set_location_assignment PIN_L18 -to TU_SENAL_HEX5_C
+# set_location_assignment PIN_N18 -to TU_SENAL_HEX5_D
+# set_location_assignment PIN_M20 -to TU_SENAL_HEX5_E
+# set_location_assignment PIN_N19 -to TU_SENAL_HEX5_F
+# set_location_assignment PIN_N20 -to TU_SENAL_HEX5_G
+# set_location_assignment PIN_L19 -to TU_SENAL_HEX5_DP
+
+# --------------------------------------------------------------------------
+# Puerto VGA (Video Graphics Array) de 4 bits por color
+# --------------------------------------------------------------------------
+# set_location_assignment PIN_N3  -to TU_SENAL_VGA_HSYNC
+# set_location_assignment PIN_N1  -to TU_SENAL_VGA_VSYNC
+# set_location_assignment PIN_AA1 -to TU_SENAL_VGA_R[0]
+# set_location_assignment PIN_V1  -to TU_SENAL_VGA_R[1]
+# set_location_assignment PIN_Y2  -to TU_SENAL_VGA_R[2]
+# set_location_assignment PIN_Y1  -to TU_SENAL_VGA_R[3]
+# set_location_assignment PIN_W1  -to TU_SENAL_VGA_G[0]
+# set_location_assignment PIN_T2  -to TU_SENAL_VGA_G[1]
+# set_location_assignment PIN_R2  -to TU_SENAL_VGA_G[2]
+# set_location_assignment PIN_R1  -to TU_SENAL_VGA_G[3]
+# set_location_assignment PIN_P1  -to TU_SENAL_VGA_B[0]
+# set_location_assignment PIN_T1  -to TU_SENAL_VGA_B[1]
+# set_location_assignment PIN_P4  -to TU_SENAL_VGA_B[2]
+# set_location_assignment PIN_N2  -to TU_SENAL_VGA_B[3]
+
+# ==============================================================================
+# ESTÁNDAR DE VOLTAJE (Crucial para la DE10-Lite)
+# ==============================================================================
+# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to *
+
+
+# ==============================================================================
+# ARCHIVOS A COMPILAR DEL PROYECTO (AGREGAR NUEVOS) 
+# ==============================================================================
+
+set_global_assignment -name VHDL_FILE src/digitalFIR.vhd

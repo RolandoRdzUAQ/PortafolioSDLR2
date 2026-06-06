@@ -1,0 +1,19 @@
+# Current time Mon May 18 08:55:44 2026
+# Program = vsim
+# Id = "2025.2"
+# Version = "2025.05"
+# Date = "May 31 2025"
+# Platform = "linux_x86_64"
+# Signature = ffe208fd14a214d6e362cbfb19afdbad
+# --> START OF USERCODE
+# 0    0x00007ffff310b1e0: '_ZN7HdlLink9restartCbEv + 0x0000000000000010' in '/usr/local/MATLAB/R2025b/toolbox/edalink/extensions/modelsim/linux64/liblfmhdls_tmwgcc.so'
+# <-- END OF USERCODE
+# 1    0x0000000000c4b997: '<unknown (@0xc4b997)>'
+# 2    0x00000000011493e4: '<unknown (@0x11493e4)>'
+# 3    0x0000000000c72b45: '<unknown (@0xc72b45)>'
+# 4    0x00007ffff7841101: '<unknown (@0x7ffff7841101)>'
+# 5    0x00007ffff78411de: '<unknown (@0x7ffff78411de)>'
+# 6    0x0000000000c6d17c: '<unknown (@0xc6d17c)>'
+# End of Stack Trace
+
+

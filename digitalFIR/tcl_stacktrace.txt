@@ -1,0 +1,37 @@
+Mon May 18 17:41:02 CST 2026
+Trace back: 
+    while executing
+"vsim_kernel SimObjView {*}$args"
+    (procedure "::SimDataset::SimObjView" body line 2)
+    invoked from within
+"SimObjView absname $id"
+    (object "::AbstractDataset::simDataset0" method "::SimDataset::absname" body line 6)
+    invoked from within
+"$this absname $id"
+    (object "::AbstractDataset::simDataset0" method "::AbstractDataset::fullname" body line 2)
+    invoked from within
+"$nameSpace fullname $id"
+    (procedure "ObjectsTreeView::fullname" line 6)
+    invoked from within
+"ObjectsTreeView::fullname $id"
+    (procedure "QObjects::FormatGet" line 24)
+    invoked from within
+"QObjects::FormatGet .main_pane.objects SkU2LkzyU VcU2LkzyU TkqD8kzyU -1 0 0 0 0"
+    ("eval" body line 1)
+    invoked from within
+"eval $itk_option(-fmtgetcommand) $raw"
+    (object "::.main_pane.objects.interior.cs.body.tree" method "::vsimwidgets::Hierarchy::get" body line 10)
+    invoked from within
+"$tree get $idx"
+    (procedure "QObjects::BalloonText" line 9)
+    invoked from within
+"QObjects::BalloonText .main_pane.objects.interior.cs.body.tree .main_pane.objects.interior.cs.body.tree.lwchildsite.clipper.canvas.sfchildsite 788 128..."
+    ("eval" body line 1)
+    invoked from within
+"eval $_d($w,getmsgcb) $w $x $y $X $Y"
+    (procedure "mtiBalloon::_popUp" line 25)
+    invoked from within
+"mtiBalloon::_popUp .main_pane.objects.interior.cs.body.tree.lwchildsite.clipper.canvas.sfchildsite 788 128 1088 280"
+    ("after" script)
+  <2:/home/rolando/altera_lite/25.1std/questa_fse/linux_x86_64/tk8.6/bgerror.tcl:106: ::tkerror {}
+  <1:eval:1: ::tk::dialog::error::bgerror {}

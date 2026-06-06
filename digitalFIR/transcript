@@ -1,0 +1,76 @@
+# Reading pref.tcl
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 linux_x86_64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# do compile_and_launch.tcl
+# 1. Navegamos a tu directorio
+cd /home/rolando/Documents/Semester_8/SDLR/digitalFIR
+# reading modelsim.ini
+
+# 2. Compilamos tu código VHDL
+vcom -work work src/digitalFIR.vhd
+# Questa Altera Starter FPGA Edition-64 vcom 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 12:43:37 on May 16,2026
+# vcom -reportprogress 300 -work work src/digitalFIR.vhd 
+# ** Note: (vcom-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vcom-223) The environment variable MTI_VCO_MODE will be deprecated in future releases. Please use QSIM_VCO_MODE instead.
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Compiling entity digitalFIR
+# -- Compiling architecture Behavioral of digitalFIR
+# -- Loading entity LatchSR
+# -- Loading entity FreeRunCounter
+# -- Loading entity CountDown
+# -- Loading package NUMERIC_STD_UNSIGNED
+# -- Loading entity FilterMultiplexor
+# -- Loading entity CoefficientsROM
+# -- Loading entity LoadRegister
+# End time: 12:43:37 on May 16,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+
+# 3. Cargamos el diseño inyectando el Servidor de Simulink por Socket
+vsim -voptargs=+acc work.digitalFIR -foreign {simlinkserver {/usr/local/MATLAB/R2025b/toolbox/edalink/extensions/modelsim/linux64/liblfmhdls_tmwgcc.so} ; -socket 4449}
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-223) The environment variable MTI_VCO_MODE will be deprecated in future releases. Please use QSIM_VCO_MODE instead.
+# vsim -voptargs="+acc" work.digitalFIR -foreign "simlinkserver {/usr/local/MATLAB/R2025b/toolbox/edalink/extensions/modelsim/linux64/liblfmhdls_tmwgcc.so} ; -socket 4449" 
+# Start time: 12:43:37 on May 16,2026
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.numeric_std_unsigned(body)
+# Loading work.digitalfir(behavioral)#1
+# Loading work.latchsr(behavioral)#1
+# Loading work.freeruncounter(behavioral)#1
+# Loading work.countdown(behavioral)#1
+# Loading work.filtermultiplexor(structural)#1
+# Loading work.loadregister(behavioral)#1
+# Loading work.coefficientsrom(dataflow)#1
+# Loading work.loadregister(behavioral)#2
+# Loading /usr/local/MATLAB/R2025b/toolbox/edalink/extensions/modelsim/linux64/liblfmhdls_tmwgcc.so
+# El CLK maestro y el pulso SYN de muestreo
+force -freeze sim:/digitalFIR/CLK 1 0, 0 {10 ns} -r 20 ns
+force -freeze sim:/digitalFIR/SYN 1 0, 0 {20 ns} -r 2 ms
+
+# El Reset invertido (0 inicial, 1 a los 100 ns)
+force -freeze sim:/digitalFIR/RST 0 0, 1 {100 ns}
+# End time: 12:46:21 on May 16,2026, Elapsed time: 0:02:44
+# Errors: 0, Warnings: 0
